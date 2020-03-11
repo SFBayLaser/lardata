@@ -13,10 +13,11 @@
 #include "art/Framework/Services/Registry/ServiceMacros.h"
 #include "lardataalg/DetectorInfo/DetectorClocks.h"
 #include "larcore/CoreUtils/ServiceUtil.h"
+#include "larcore/CoreUtils/EnsureOnlyOneSchedule.h"
 
 ///General LArSoft Utilities
 namespace detinfo{
-  class DetectorClocksService {
+  class DetectorClocksService: private lar::EnsureOnlyOneSchedule<DetectorClocksService> {
 
     public:
     typedef detinfo::DetectorClocks provider_type;
@@ -29,5 +30,5 @@ namespace detinfo{
 
     }; // class DetectorClocksService
 } //namespace detinfo
-DECLARE_ART_SERVICE_INTERFACE(detinfo::DetectorClocksService, LEGACY)
+DECLARE_ART_SERVICE_INTERFACE(detinfo::DetectorClocksService, SHARED)
 #endif // DETECTORCLOCKSSERVICE_H

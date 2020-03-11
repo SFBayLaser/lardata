@@ -13,10 +13,11 @@
 #include "art/Framework/Services/Registry/ServiceMacros.h"
 #include "lardataalg/DetectorInfo/LArProperties.h"
 #include "larcore/CoreUtils/ServiceUtil.h"
+#include "larcore/CoreUtils/EnsureOnlyOneSchedule.h"
 
 ///General LArSoft Utilities
 namespace detinfo{
-  class LArPropertiesService {
+  class LArPropertiesService: private lar::EnsureOnlyOneSchedule<LArPropertiesService> {
 
     public:
     typedef detinfo::LArProperties provider_type;
@@ -29,5 +30,5 @@ namespace detinfo{
 
     }; // class LArPropertiesService
 } //namespace detinfo
-DECLARE_ART_SERVICE_INTERFACE(detinfo::LArPropertiesService, LEGACY)
+DECLARE_ART_SERVICE_INTERFACE(detinfo::LArPropertiesService, SHARED)
 #endif // LARPROPERTIESSERVICE_H
